@@ -16,6 +16,13 @@ MongoClient.connect(connectionString)
         app.use(express.urlencoded({ extended: true }));
 
         app.get('/', (req, res) => {
+            const quotes = quotesCollection.find().toArray();
+            quotes.then(results => {
+                    console.log(results);
+                })
+                .catch(error => console.log(error));
+
+            // console.log(cursor);
             res.sendFile(__dirname + '/index.html');
         })
 
