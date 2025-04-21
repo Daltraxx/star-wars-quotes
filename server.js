@@ -10,6 +10,8 @@ const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5c
 MongoClient.connect(connectionString)
     .then(client => {
         console.log('Connected to database');
+        app.set('view engine', 'ejs')
+
         const db = client.db('star-wars-quotes');
         const quotesCollection = db.collection('quotes');
 
@@ -17,13 +19,16 @@ MongoClient.connect(connectionString)
 
         app.get('/', (req, res) => {
             const quotes = quotesCollection.find().toArray();
-            quotes.then(results => {
-                    console.log(results);
-                })
-                .catch(error => console.log(error));
+            
+            quotes
+            .then(results => {
+                console.log(results);
+                res.render('index.ejs', { quotes: results });
+            })
+            .catch(error => console.log(error));
 
-            // console.log(cursor);
-            res.sendFile(__dirname + '/index.html');
+            
+            // res.sendFile(__dirname + '/index.html');
         })
 
         app.post('/quotes', (req, res) => {
