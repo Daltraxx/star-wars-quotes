@@ -15,7 +15,8 @@ MongoClient.connect(connectionString)
         const db = client.db('star-wars-quotes');
         const quotesCollection = db.collection('quotes');
 
-        app.use(express.urlencoded({ extended: true }));
+        app.use(express.urlencoded({ extended: true })); // allows us to read data from form element on its own, must be placed before CRUD handlers
+        app.use(express.static('public')); // makes public folder publicly accessible
 
         app.get('/', (req, res) => {
             const quotes = quotesCollection.find().toArray();
