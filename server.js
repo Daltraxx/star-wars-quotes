@@ -59,6 +59,7 @@ MongoClient.connect(connectionString)
             const options = { upsert: true }; // instructs to insert a document if none matching query are found
 
             //below method is simplified using mongoose
+            //consider modifying so it only adds quote if matching one isn't already there
             quotesCollection.findOneAndUpdate(query, update, options)
                 .then(result => {
                     // console.log(result);
