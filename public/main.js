@@ -34,7 +34,7 @@ const deleteDarthVaderQuote = () => {
         })
         .then(res => {
             console.log(res);
-            if (res === 'No quote to delete') {
+            if (res === 'No quote to delete.') {
                 messageSection.textContent = 'No Darth Vader quote to delete!';
             } else {
                 window.location.reload();
