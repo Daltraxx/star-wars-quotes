@@ -24,7 +24,7 @@ MongoClient.connect(connectionString)
             
             quotes
             .then(results => {
-                console.log(results);
+                // console.log(results);
                 res.render('index.ejs', { quotes: results });
             })
             .catch(error => console.log(error));
@@ -45,7 +45,7 @@ MongoClient.connect(connectionString)
 
         app.put('/quotes', (req, res) => {
             const reqData = req.body;
-            console.log(reqData);
+            console.log(req.body);
 
             const query = { name: 'Yoda' };
 
@@ -65,7 +65,24 @@ MongoClient.connect(connectionString)
                     // console.log(result);
                     res.json('success');
                 })
-                .catch(error => console.log(error));
+                .catch(error => console.error(error));
+        })
+
+        app.delete('/quotes', (req, res) => {
+            const reqData = req.body;
+            console.log(reqData);
+
+
+            const query = { name : reqData.name };
+            
+            quotesCollection.deleteOne(query)
+                .then(result => {
+                    if (result.deletedCount === 0) {
+                        return res.json('No quote to delete');
+                    }
+                    res.json(`Deleted quote by ${query.name}`);
+                })
+                .catch(error => console.error(error))
         })
 
         app.listen(3000, () =>  {

@@ -1,5 +1,6 @@
 const updateBtn = document.querySelector('#update-button');
 const deleteBtn = document.querySelector('#delete-button');
+const messageSection = document.querySelector('#message');
 
 const replaceWithDarthVaderQuote = () => {
     //convert to async function with try catch and await?
@@ -25,6 +26,7 @@ const deleteDarthVaderQuote = () => {
     const endpoint = '/quotes';
     fetch(endpoint, {
         method: 'delete',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: 'Darth Vader' })
     })
         .then(res => {
@@ -32,8 +34,13 @@ const deleteDarthVaderQuote = () => {
         })
         .then(res => {
             console.log(res);
-            window.location.reload();
+            if (res === 'No quote to delete') {
+                messageSection.textContent = 'No Darth Vader quote to delete!';
+            } else {
+                window.location.reload();
+            }
         })
 }
 
 updateBtn.addEventListener('click', replaceWithDarthVaderQuote);
+deleteBtn.addEventListener('click', deleteDarthVaderQuote);
