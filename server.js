@@ -6,6 +6,7 @@ const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5c
 
 import getHomePage from './js/getHomePage.js';
 import addQuote from './js/addQuote.js';
+import replaceYodaQuoteWithVader from './js/replaceYodaQuoteWithVader.js';
 
 MongoClient.connect(connectionString)
     .then(client => {
@@ -28,28 +29,7 @@ MongoClient.connect(connectionString)
         })
 
         app.put('/quotes', (req, res) => {
-            const reqData = req.body;
-            console.log(req.body);
-
-            const query = { name: 'Yoda' };
-
-            const update = {
-                $set: {
-                    name: reqData.name,
-                    quote: reqData.quote
-                }
-            }
-
-            const options = { upsert: true }; // instructs to insert a document if none matching query are found
-
-            //below method is simplified using mongoose
-            //consider modifying so it only adds quote if matching one isn't already there
-            quotesCollection.findOneAndUpdate(query, update, options)
-                .then(result => {
-                    // console.log(result);
-                    res.json('success');
-                })
-                .catch(error => console.error(error));
+            replaceYodaQuoteWithVader(quotesCollection, req, res);
         })
 
         app.delete('/quotes', (req, res) => {
