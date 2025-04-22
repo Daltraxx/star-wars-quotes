@@ -6,7 +6,7 @@ const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5c
 
 import getHomePage from './js/getHomePage.js';
 import addQuote from './js/addQuote.js';
-import replaceYodaQuoteWithVader from './js/replaceYodaQuoteWithVader.js';
+import replaceYodaQuote from './js/replaceYodaQuote.js';
 
 MongoClient.connect(connectionString)
     .then(client => {
@@ -29,7 +29,7 @@ MongoClient.connect(connectionString)
         })
 
         app.put('/quotes', (req, res) => {
-            replaceYodaQuoteWithVader(quotesCollection, req, res);
+            replaceYodaQuote(quotesCollection, req, res);
         })
 
         app.delete('/quotes', (req, res) => {

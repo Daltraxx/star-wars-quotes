@@ -1,4 +1,4 @@
-const replaceYodaQuoteWithVader = (quotesCollection, req, res) => {
+const replaceYodaQuote = (quotesCollection, req, res) => {
     const reqData = req.body;
     console.log(req.body);
 
@@ -23,4 +23,4 @@ const replaceYodaQuoteWithVader = (quotesCollection, req, res) => {
         .catch(error => console.error(error));
 }
 
-export default replaceYodaQuoteWithVader;
+export default replaceYodaQuote;
