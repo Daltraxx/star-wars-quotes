@@ -1,6 +1,8 @@
-const replaceYodaQuote = (quotesCollection, req, res) => {
+const replaceYodaQuote = async(quotesCollection, req, res) => {
+    //below process is simplified using mongoose
+    //consider modifying so it only adds quote if matching one isn't already there
     const reqData = req.body;
-    console.log(req.body);
+    //console.log(req.body);
 
     const query = { name: 'Yoda' };
 
@@ -13,14 +15,13 @@ const replaceYodaQuote = (quotesCollection, req, res) => {
 
     const options = { upsert: true }; // instructs to insert a document if none matching query are found
 
-    //below method is simplified using mongoose
-    //consider modifying so it only adds quote if matching one isn't already there
-    quotesCollection.findOneAndUpdate(query, update, options)
-        .then(result => {
-            // console.log(result);
-            res.json('success');
-        })
-        .catch(error => console.error(error));
+    try {
+        const updateResult = await quotesCollection.findOneAndUpdate(query, update, options);
+        console.log(updateResult);
+        res.json('Success');
+    } catch(error) {
+        console.error(error);
+    }
 }
 
 export default replaceYodaQuote;
