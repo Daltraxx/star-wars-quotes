@@ -4,15 +4,16 @@ const app = express();
 import { MongoClient } from 'mongodb';
 const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5cc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
-import getHomePage from './js/getHomePage.js';
+import getHomepage from './js/getHomepage.js';
 import addQuote from './js/addQuote.js';
 import replaceYodaQuote from './js/replaceYodaQuote.js';
 import deleteQuoteByName from './js/deleteQuoteByName.js';
 
-MongoClient.connect(connectionString)
-    .then(client => {
+const startServer = async() => {
+    try {
+        const client = await MongoClient.connect(connectionString);
+        //console.log(client);
         console.log('Connected to database');
-        app.set('view engine', 'ejs')
 
         const db = client.db('star-wars-quotes');
         const quotesCollection = db.collection('quotes');
@@ -22,7 +23,7 @@ MongoClient.connect(connectionString)
         app.use(express.json()); // instruct express to accept json data
 
         app.get('/', (req, res) => {
-            getHomePage(quotesCollection, res);
+            getHomepage(quotesCollection, res);
         })
 
         app.post('/quotes', (req, res) => {
@@ -40,8 +41,13 @@ MongoClient.connect(connectionString)
         app.listen(3000, () =>  {
             console.log('listening on 3000');
         })
-    })
-    .catch(error => console.error(error));
+
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+startServer();
 
 
 

@@ -1,4 +1,4 @@
-const getHomePage = async(quotesCollection, res) => {
+const getHomepage = async(quotesCollection, res) => {
     try {
         const results = await quotesCollection.find().toArray();
         //console.log(results);
@@ -8,4 +8,4 @@ const getHomePage = async(quotesCollection, res) => {
     }
 }
 
-export default getHomePage;
+export default getHomepage;
