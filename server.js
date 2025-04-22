@@ -1,10 +1,7 @@
-const express = require('express');
+import express from 'express';
 const app = express();
 
-// console.log('May Node be with you');
-// console.log(__dirname);
-
-const MongoClient = require('mongodb').MongoClient;
+import { MongoClient } from 'mongodb';
 const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5cc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 MongoClient.connect(connectionString)
@@ -34,6 +31,7 @@ MongoClient.connect(connectionString)
         })
 
         app.post('/quotes', (req, res) => {
+            //should first check if quote already exists first
             quotesCollection
                 .insertOne(req.body)
                 .then(result => {
