@@ -4,6 +4,8 @@ const app = express();
 import { MongoClient } from 'mongodb';
 const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5cc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
+import getHomePage from './js/getHomePage.js';
+
 MongoClient.connect(connectionString)
     .then(client => {
         console.log('Connected to database');
@@ -17,17 +19,7 @@ MongoClient.connect(connectionString)
         app.use(express.json()); // instruct express to accept json data
 
         app.get('/', (req, res) => {
-            const quotes = quotesCollection.find().toArray();
-            
-            quotes
-            .then(results => {
-                // console.log(results);
-                res.render('index.ejs', { quotes: results });
-            })
-            .catch(error => console.log(error));
-
-            
-            // res.sendFile(__dirname + '/index.html');
+            getHomePage(quotesCollection, res);
         })
 
         app.post('/quotes', (req, res) => {
