@@ -5,6 +5,7 @@ import { MongoClient } from 'mongodb';
 const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5cc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 import getHomePage from './js/getHomePage.js';
+import addQuote from './js/addQuote.js';
 
 MongoClient.connect(connectionString)
     .then(client => {
@@ -23,14 +24,7 @@ MongoClient.connect(connectionString)
         })
 
         app.post('/quotes', (req, res) => {
-            //should first check if quote already exists first
-            quotesCollection
-                .insertOne(req.body)
-                .then(result => {
-                    console.log(result);
-                    res.redirect('/');
-                })
-                .catch(error => console.error(error));
+            addQuote(quotesCollection, res);
         })
 
         app.put('/quotes', (req, res) => {
