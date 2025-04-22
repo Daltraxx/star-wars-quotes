@@ -1,4 +1,5 @@
 const updateBtn = document.querySelector('#update-button');
+const deleteBtn = document.querySelector('#delete-button');
 
 const replaceWithDarthVaderQuote = () => {
     //convert to async function with try catch and await?
@@ -17,6 +18,21 @@ const replaceWithDarthVaderQuote = () => {
         .then(res => {
             console.log(res);
             window.location.reload(true); // refreshes page to see changes, could instead use js to update DOM
+        })
+}
+
+const deleteDarthVaderQuote = () => {
+    const endpoint = '/quotes';
+    fetch(endpoint, {
+        method: 'delete',
+        body: JSON.stringify({ name: 'Darth Vader' })
+    })
+        .then(res => {
+            if (res.ok) return res.json();
+        })
+        .then(res => {
+            console.log(res);
+            window.location.reload();
         })
 }
 
