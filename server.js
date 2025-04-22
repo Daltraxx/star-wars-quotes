@@ -7,6 +7,7 @@ const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5c
 import getHomePage from './js/getHomePage.js';
 import addQuote from './js/addQuote.js';
 import replaceYodaQuote from './js/replaceYodaQuote.js';
+import deleteQuoteByName from './js/deleteQuoteByName.js';
 
 MongoClient.connect(connectionString)
     .then(client => {
@@ -25,7 +26,7 @@ MongoClient.connect(connectionString)
         })
 
         app.post('/quotes', (req, res) => {
-            addQuote(quotesCollection, res);
+            addQuote(quotesCollection, req, res);
         })
 
         app.put('/quotes', (req, res) => {
@@ -33,20 +34,7 @@ MongoClient.connect(connectionString)
         })
 
         app.delete('/quotes', (req, res) => {
-            const reqData = req.body;
-            console.log(reqData);
-
-
-            const query = { name : reqData.name };
-            
-            quotesCollection.deleteOne(query)
-                .then(result => {
-                    if (result.deletedCount === 0) {
-                        return res.json('No quote to delete');
-                    }
-                    res.json(`Deleted quote by ${query.name}`);
-                })
-                .catch(error => console.error(error))
+            deleteQuoteByName(quotesCollection, req, res);
         })
 
         app.listen(3000, () =>  {
