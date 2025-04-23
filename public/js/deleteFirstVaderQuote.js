@@ -1,23 +1,25 @@
 import noMoreVaderQuotes from "./noMoreVaderQuotes.js";
 
-const deleteFirstVaderQuote = () => {
+const deleteFirstVaderQuote = async() => {
     const endpoint = '/quotes';
-    fetch(endpoint, {
+    const options = {
         method: 'delete',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: 'Darth Vader' })
-    })
-        .then(res => {
-            if (res.ok) return res.json();
-        })
-        .then(res => {
-            console.log(res);
-            if (res === 'No quote to delete.') {
-                noMoreVaderQuotes();
-            } else {
-                window.location.reload();
-            }
-        })
+    }
+
+    try {
+        const res = await fetch(endpoint, options);
+        if (res.ok) {
+            const message = await res.json();
+            console.log(message);
+            message === 'No quote to delete.' ? noMoreVaderQuotes() : window.location.reload();
+        } else {
+            throw new Error('delete request failed');
+        }
+    } catch(error) {
+        console.error(error);
+    }
 }
 
 export default deleteFirstVaderQuote;
