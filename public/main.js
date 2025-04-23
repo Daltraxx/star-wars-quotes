@@ -1,46 +1,9 @@
 const updateBtn = document.querySelector('#update-button');
 const deleteBtn = document.querySelector('#delete-button');
-const messageSection = document.querySelector('#message');
 
-const replaceWithDarthVaderQuote = () => {
-    //convert to async function with try catch and await?
-    const endpoint = '/quotes';
-    fetch(endpoint, {
-        method: 'put',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            name: 'Darth Vader',
-            quote: 'I find your lack of faith disturbing.'
-        })
-    })
-        .then(res => {
-            if (res.ok) return res.json();
-        })
-        .then(res => {
-            console.log(res);
-            window.location.reload(true); // refreshes page to see changes, could instead use js to update DOM
-        })
-}
 
-const deleteDarthVaderQuote = () => {
-    const endpoint = '/quotes';
-    fetch(endpoint, {
-        method: 'delete',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: 'Darth Vader' })
-    })
-        .then(res => {
-            if (res.ok) return res.json();
-        })
-        .then(res => {
-            console.log(res);
-            if (res === 'No quote to delete.') {
-                messageSection.textContent = 'No Darth Vader quote to delete!';
-            } else {
-                window.location.reload();
-            }
-        })
-}
+import replaceWithDarthVaderQuote from "./js/replaceWithDarthVaderQuote.js";
+import deleteFirstVaderQuote from "./js/deleteFirstVaderQuote.js";
 
 updateBtn.addEventListener('click', replaceWithDarthVaderQuote);
-deleteBtn.addEventListener('click', deleteDarthVaderQuote);
+deleteBtn.addEventListener('click', deleteFirstVaderQuote);
