@@ -1,5 +1,6 @@
+import noMoreVaderQuotes from "./noMoreVaderQuotes.js";
+
 const deleteFirstVaderQuote = () => {
-    const messageSection = document.querySelector('#message');
     const endpoint = '/quotes';
     fetch(endpoint, {
         method: 'delete',
@@ -12,7 +13,7 @@ const deleteFirstVaderQuote = () => {
         .then(res => {
             console.log(res);
             if (res === 'No quote to delete.') {
-                messageSection.textContent = 'No Darth Vader quote to delete!';
+                noMoreVaderQuotes();
             } else {
                 window.location.reload();
             }
