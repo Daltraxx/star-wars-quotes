@@ -1,21 +1,26 @@
-const replaceWithDarthVaderQuote = () => {
-    //convert to async function with try catch and await?
+const replaceWithDarthVaderQuote = async() => {
     const endpoint = '/quotes';
-    fetch(endpoint, {
+    const options = {
         method: 'put',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             name: 'Darth Vader',
             quote: 'I find your lack of faith disturbing.'
         })
-    })
-        .then(res => {
-            if (res.ok) return res.json();
-        })
-        .then(res => {
-            console.log(res);
-            window.location.reload(true); // refreshes page to see changes, could instead use js to update DOM
-        })
+    }
+
+    try {
+        const res = await fetch(endpoint, options);
+        if (res.ok) {
+            // const message = await res.json();
+            window.location.reload(true);
+        } else {
+            throw new Error('PUT request failed');
+        }
+    } catch(error) {
+        console.error(error);
+    }
+    
 }
 
 export default replaceWithDarthVaderQuote;

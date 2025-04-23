@@ -13,7 +13,7 @@ const deleteFirstVaderQuote = async() => {
         if (res.ok) {
             const message = await res.json();
             console.log(message);
-            message === 'No quote to delete.' ? noMoreVaderQuotes() : window.location.reload();
+            message === 'No quote to delete.' ? noMoreVaderQuotes() : window.location.reload(true);
         } else {
             throw new Error('delete request failed');
         }
