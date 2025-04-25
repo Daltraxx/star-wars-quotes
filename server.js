@@ -1,6 +1,6 @@
 import express from 'express';
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 4000;
 
 import { MongoClient } from 'mongodb';
 const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5cc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
@@ -39,7 +39,7 @@ const startServer = async() => {
             deleteQuoteByName(quotesCollection, req, res);
         })
 
-        app.listen(process.env.PORT || PORT, () =>  {
+        app.listen(PORT, () =>  {
             console.log(`Listening on ${PORT}`);
         })
 
