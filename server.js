@@ -5,7 +5,7 @@ const PORT = 3000;
 import { MongoClient } from 'mongodb';
 const connectionString = 'mongodb+srv://daltpettus:Eudaimonia13*@cluster0.sj8b5cc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
-import getHomepage from './js/getHomepage.js';
+import getHomepage from './js/getHomePage.js';
 import addQuote from './js/addQuote.js';
 import replaceYodaQuote from './js/replaceYodaQuote.js';
 import deleteQuoteByName from './js/deleteQuoteByName.js';
